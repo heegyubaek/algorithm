@@ -26,16 +26,38 @@ ex)
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctime>
+#include <algorithm>
+
+#define ALG_SPPED_TEST 1
+#if ALG_SPPED_TEST
+int n, S[10000000];
+#endif
 
 void bubble_sort(int* numbers, int size);
 
 int main()
 {
+#if ALG_SPPED_TEST
+    srand(time(NULL));
+    scanf("%d", &n);
+    for(int i = 0; i < n ; i++)
+    {
+        S[i] = rand();
+    }
+
+    int start = clock();
+
+//    bubble_sort(S, n);
+    std::sort(S,S+n);
+
+    printf("result=%.3lf(sec)\n", (double)(clock()-start)/CLOCKS_PER_SEC);
+#else
     int inputNum = 0;
     scanf("%d", &inputNum);
     fflush(stdin);
 
-    if(inputNum < 1 || inputNum > 1000)
+    if(inputNum < 1 || inputNum > 10000000)
     {
         return 0;
     }
@@ -44,10 +66,12 @@ int main()
     int i = 0;
     for(i = 0; i < inputNum ; i++)
     {
-        scanf("%d",&numbers[i]);
+//        scanf("%d",&numbers[i]);
+        numbers[i] = rand();
     }
 
-    bubble_sort(numbers, inputNum);
+//    bubble_sort(numbers, inputNum);
+    std::sort(numbers, numbers+inputNum);
 
     for(i = 0; i < inputNum ; i++)
     {
@@ -55,6 +79,8 @@ int main()
     }
 
     free(numbers);
+#endif
+
 
     return 0;
 }

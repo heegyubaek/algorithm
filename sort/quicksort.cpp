@@ -42,6 +42,10 @@ int main()
         numbers[i] = rand();
 #else
         scanf("%d",&numbers[i]);
+        if(numbers[i] > 10000 || numbers[i] < 0)
+        {
+            return 0;
+        }
 #endif
 
     }
