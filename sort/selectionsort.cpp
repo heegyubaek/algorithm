@@ -10,7 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-void InsertSort(int* arr, int size);
+void swap(int* a, int* b);
+void SelectionSort(int* arr, int size);
 
 int main()
 {
@@ -25,7 +26,7 @@ int main()
         scanf("%d",&numbers[i]);
     }
 
-    InsertSort(numbers, inputNum);
+    SelectionSort(numbers, inputNum);
 
     for(i = 0; i < inputNum; i++)
     {
@@ -36,20 +37,30 @@ int main()
     return 0;
 }
 
-void InsertSort(int* arr, int size)
+void swap(int* a, int* b)
 {
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
+
+void SelectionSort(int* arr, int size)
+{
+    int min = 0;
     int i = 0;
-    for(i = 0; i < size; i++)
+    for(i = 0; i < size - 1; i++)
     {
-        int tmp = arr[i];
-        int aux = i - 1;
+        min = i;
 
-        while((aux >= 0) && (arr[aux] > tmp))
+        int j = 0;
+        for(j = i + 1; j < size; j++)
         {
-            arr[aux + 1] = arr[aux];
-            aux--;
+            if(arr[j] < arr[min])
+            {
+                min = j;
+            }
         }
-
-        arr[aux + 1] = tmp;
+        swap(&arr[min], &arr[i]);
     }
 }
