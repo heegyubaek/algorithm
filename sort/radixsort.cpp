@@ -10,12 +10,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define ALG_SPPED_TEST 0
+
+#if ALG_SPPED_TEST
+#include <ctime>
+#endif
+
 #define INDEX 10001
 
 void RadixSort(int *arr, int size);
 
 int main()
 {
+#if ALG_SPPED_TEST
+    srand(time(NULL));
+#endif
     int n, i, k;
     int arr[INDEX] = {0,};
 
@@ -23,15 +32,27 @@ int main()
 
     for(i = 0; i < n; i++)
     {
+#if ALG_SPPED_TEST
+        arr[i] = rand();
+#else
         scanf("%d", &arr[i]);
+#endif
     }
 
+
+#if ALG_SPPED_TEST
+    int start = clock();
+#endif
     RadixSort(arr, n);
 
     for(i = 0; i < n; i++)
     {
         printf("%d", arr[i]);
     }
+
+#if ALG_SPPED_TEST
+    printf("result=%.3lf(sec)\n", (double)(clock()-start)/CLOCKS_PER_SEC);
+#endif
 
 }
 
@@ -66,13 +87,15 @@ void RadixSort(int *arr, int size)
     }while(digit <= j);
 
     int data = 0;
-    for(i = 1; i <= digit ; i *= 10)
+    for(i = 1; i <= digit ; i *= 10) /* digit of sort */
     {
         for(j = 0; j < size; j++)
         {
-            data = (arr[j] / i) % (i * 10); /* Calculate number of each digit */
-            queue[data][++top[data]] = arr[j];
+            data = (arr[j] / i) % 10; /* Calculate number of each digit */
+            queue[data][++top[data]] = arr[j]; /* put into queue */
         }
+
+        /* Retrieves data from the queue in order of digits */
         k = 0;
         for(j = 0; j < 10; j++)
         {
@@ -84,7 +107,7 @@ void RadixSort(int *arr, int size)
         }
     }
 
-    for(i = 0; i < 10 ; i++)
+    for(i = 0; i < 10 ; i++) /* free of memory */
     {
         free(queue[i]);
     }
