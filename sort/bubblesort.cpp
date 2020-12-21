@@ -8,7 +8,7 @@ void bubble_sort(array<size_t, size> &numbers);
 
 int main(int argc, const char **argv)
 {
-	array<size_t, 5> numbers = {11, 3, 4, 6, 1};
+	array<size_t, 7> numbers = {11, 3, 4, 6, 1, 5, 7};
 	
 	cout << "Example of bubble sort !!" << endl;
 	cout << "11, 3, 4, 6, 1 sort " << endl << endl;
