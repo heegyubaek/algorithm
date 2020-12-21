@@ -27,6 +27,7 @@ int FindMaxIndex(int *base, int n, int now);
 int main()
 {
     int inputNum = 0;
+    printf("Please input unmber!");
     scanf("%d", &inputNum);
     fflush(stdin);
 
